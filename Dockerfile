@@ -1,25 +1,23 @@
-# Use the official Python image from the Docker Hub
+# Usar una imagen base de Python oficial más ligera
 FROM python:3.8.20-slim
 
-# Set the working directory in the container
+# Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Copy the requirements file into the container
+# Copiar el archivo de requisitos e instalar las dependencias
 COPY requirements.txt .
-
-# Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt && \
     rm -rf /root/.cache/pip
 
-# Copy the rest of the application code into the container
+# Copiar el resto del código de la aplicación al directorio de trabajo
 COPY . .
 
-# Create a non-root user and switch to it
+# Crear un usuario no root y cambiar a él
 RUN useradd -m myuser
 USER myuser
 
-# Expose the port the app runs on
+# Exponer el puerto en el que Flask se ejecutará
 EXPOSE 5000
 
-# Define the command to run the application
-CMD ["python", "app/api/app.py"]
+# Comando para ejecutar la aplicación
+CMD ["flask", "run", "--host=0.0.0.0"]
