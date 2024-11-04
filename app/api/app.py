@@ -4,8 +4,11 @@ from werkzeug.utils import secure_filename
 from app.utils.process_video import process_frames
 from app.utils.emotion_detector import detect_emotions
 from app.utils.risk_evaluation import assess_risk
+from flask_sqlalchemy import SQLAlchemy
+from app.models.dbModel import db, Results
+from app import create_app
 
-app = Flask(__name__)
+app = create_app()
 
 # Configura un directorio para los archivos cargados
 UPLOAD_FOLDER = 'uploads/'
@@ -19,8 +22,6 @@ if not os.path.exists(FRAMES_FOLDER):
     
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['FRAMES_FOLDER'] = FRAMES_FOLDER
-
-
 
 @app.route('/upload', methods=['POST'])
 def upload_video():
@@ -50,6 +51,25 @@ def evaluate_risk():
     # Aquí puedes agregar lógica para extraer la imagen de la solicitud si es necesario
     result = assess_risk(None)  # Pasar el objeto de imagen adecuado
     return jsonify(result)
+
+# Verificar la conexión a la base de datos
+@app.route('/get-results', methods=['GET'])
+def get_results():
+    try:
+        # Consultar todos los registros en la tabla results
+        results = Results.query.all()
+        results_list = [{
+            'id': result.id,
+            'video_id': result.video_id,
+            'emotions': result.emotions,
+            'risk_assessment': result.risk_assessment,
+            'created_at': result.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        } for result in results]
+        
+        return jsonify(results_list)
+    except Exception as e:
+        return jsonify({'status': 'Failed', 'message': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -8,10 +8,15 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && \
+    rm -rf /root/.cache/pip
 
 # Copy the rest of the application code into the container
 COPY . .
+
+# Create a non-root user and switch to it
+RUN useradd -m myuser
+USER myuser
 
 # Expose the port the app runs on
 EXPOSE 5000
