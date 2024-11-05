@@ -1,2 +1,6 @@
+pip install flask
+pip install opencv-python-headless
+pip install flask-sqlalchemy
+conda install -c anaconda psycopg2
 pip freeze > requirements.txt
 python -m app.api.app 
