@@ -1,1 +1,4 @@
 uploads/
+
+#Ignorar todos los archivos que terminen en .pyc
+*.pyc
