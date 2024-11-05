@@ -1,4 +1,3 @@
 uploads/
-
-#Ignorar todos los archivos que terminen en .pyc
-*.pyc
+__pycache__/
+__pycache__/**/*

@@ -9,9 +9,9 @@ def process_image(img):
     normalized_img = cv2.normalize(gray, None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
 
     # Redimensionar la imagen a un tamaño estándar (ejemplo: 48x48)
-    # resized_img = cv2.resize(normalized_img, (48, 48), interpolation=cv2.INTER_AREA)
+    resized_img = cv2.resize(normalized_img, (48, 48), interpolation=cv2.INTER_AREA)
 
-    return normalized_img
+    return resized_img
 
 def process_frames(video_path, upload_folder):
     # Obtener el nombre del archivo de video sin la extensión
