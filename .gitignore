@@ -1,3 +1,25 @@
 uploads/
+# Ignorar archivos y directorios innecesarios
 __pycache__/
-__pycache__/**/*
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Ignorar archivos de configuración de entorno
+.env
+*.env
+
+# Ignorar archivos de control de versiones
+.git
+
+# Ignorar archivos de configuración de IDE
+.vscode/
+.idea/
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar archivos de pruebas
+tests/
