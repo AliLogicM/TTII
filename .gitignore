@@ -1,4 +1,6 @@
 uploads/
+test/
+data/
 # Ignorar archivos y directorios innecesarios
 __pycache__/
 *.pyc
