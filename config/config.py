@@ -11,3 +11,5 @@ class Config:
 
     if not os.path.exists(FRAMES_FOLDER):
         os.makedirs(FRAMES_FOLDER)
+
+        #test1
